@@ -31,7 +31,33 @@ function divide(...arguments) {
 }
 
 //function that takes two numbers and an operator. performs the math on the two numbers
-function calculate(operator, num1, num2) {
+function operate(operator, num1, num2) {
 	return operator(num1, num2);
 }
 
+//global variables
+let display = document.querySelector('#display');
+let storedNumber = 0;
+let storedOperator;
+
+//display number 
+function displayNumbers() {
+	let btns = document.querySelectorAll('.numbers');
+	btns.forEach(button => button.addEventListener('click', (e) => {
+		storedNumber = e.target.innerText;
+		display.innerHTML += storedNumber;
+	}));
+	return storedNumber;
+}
+
+//display operator
+function displayOperator() {
+	let opBtns = document.querySelectorAll('.operators');
+	opBtns.forEach(button => button.addEventListener('click', (e) => {
+		storedOperator = e.target.innerText;
+		display.innerHTML += storedOperator;
+	}));
+}
+
+displayNumbers();
+displayOperator();
