@@ -1,25 +1,22 @@
 //create add function
 function add(...nums) {
-	let result = nums.reduce((total, num) => {
+	return nums.reduce((total, num) => {
 		return total + num;
 	});
-	return result;
 }
 
 //create subtract function
 function subtract(...nums) {
-	let result = nums.reduce((total, num) => {
+	return nums.reduce((total, num) => {
 		return total - num;
 	});
-	return result;
 }
 
 //create product function
 function multiply(...nums) {
-	let result = nums.reduce((total, num) => {
+	return nums.reduce((total, num) => {
 		return total * num;
 	});
-	return result;
 }
 
 //create divid
@@ -47,18 +44,20 @@ function operate(operator, num1, num2) {
 			return divide(num1, num2);
 		}
 	}
-	return display.innerHTML = operator(num1, num2);
 }
 
 //global variables
 let display = document.querySelector('#display');
-let storedOperator;
+let storedOperator = '';
 let storedNumber = '';
 let storedNumber2 = '';
 
 //display number
 let btns = document.querySelectorAll('.numbers');
 btns.forEach(button => button.addEventListener('click', (e) => {
+	if (storedOperator !== '') {
+		display.innerHTML = '';
+	}
 	display.innerHTML += e.target.innerText;
 }));
 
@@ -77,7 +76,6 @@ opBtns.forEach(button => button.addEventListener('click', (e) => {
 	display.innerHTML = '';
 	storedOperator = e.target.id;
 	display.innerHTML += e.target.innerText;
-	// getOperator();
 }));
 
 //clear display
@@ -89,12 +87,8 @@ clearBtn.addEventListener('click', (e) => {
 	storedOperator = '';
 });
 
-//display and store operator
-// function getOperator() {
-// 	return storedOperator;
-// }
-
 let equalsBtn = document.getElementById('equal');
 equalsBtn.addEventListener('click', (e) => {
+	getNumber();
 	display.innerHTML = operate(storedOperator, storedNumber, storedNumber2);
 });
