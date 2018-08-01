@@ -59,9 +59,7 @@ let storedNumber2 = '';
 //display number
 let btns = document.querySelectorAll('.numbers');
 btns.forEach(button => button.addEventListener('click', (e) => {
-	display.innerHTML = '';
 	display.innerHTML += e.target.innerText;
-	getNumber();
 }));
 
 //store numbers and return 
@@ -75,10 +73,11 @@ function getNumber() {
 //display and store operator
 let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', (e) => {
+	getNumber();
 	display.innerHTML = '';
 	storedOperator = e.target.id;
 	display.innerHTML += e.target.innerText;
-	getOperator();
+	// getOperator();
 }));
 
 //clear display
@@ -91,9 +90,9 @@ clearBtn.addEventListener('click', (e) => {
 });
 
 //display and store operator
-function getOperator() {
-	return storedOperator;
-}
+// function getOperator() {
+// 	return storedOperator;
+// }
 
 let equalsBtn = document.getElementById('equal');
 equalsBtn.addEventListener('click', (e) => {
