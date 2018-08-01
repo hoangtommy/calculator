@@ -1,3 +1,9 @@
+//global variables
+let display = document.querySelector('#display');
+let storedOperator = '';
+let storedNumber = '';
+let storedNumber2 = '';
+
 //create add function
 function add(...nums) {
 	return nums.reduce((total, num) => {
@@ -46,12 +52,6 @@ function operate(operator, num1, num2) {
 	}
 }
 
-//global variables
-let display = document.querySelector('#display');
-let storedOperator = '';
-let storedNumber = '';
-let storedNumber2 = '';
-
 //display number
 let btns = document.querySelectorAll('.numbers');
 btns.forEach(button => button.addEventListener('click', (e) => {
@@ -62,7 +62,7 @@ btns.forEach(button => button.addEventListener('click', (e) => {
 }));
 
 //store numbers and return 
-function getNumber() {
+function saveNumber() {
 	if (storedNumber !== '') {
 		return storedNumber2 = Number(display.innerHTML);
 	}
@@ -72,7 +72,7 @@ function getNumber() {
 //display and store operator
 let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', (e) => {
-	getNumber();
+	saveNumber();
 	display.innerHTML = '';
 	storedOperator = e.target.id;
 	display.innerHTML += e.target.innerText;
@@ -89,6 +89,6 @@ clearBtn.addEventListener('click', (e) => {
 
 let equalsBtn = document.getElementById('equal');
 equalsBtn.addEventListener('click', (e) => {
-	getNumber();
+	saveNumber();
 	display.innerHTML = operate(storedOperator, storedNumber, storedNumber2);
 });
