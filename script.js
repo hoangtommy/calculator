@@ -55,12 +55,7 @@ function operate(operator, num1, num2) {
 	}
 }
 
-//display numbers and things
-// function display(string) {
-// 	display.innerHTML = string;
-// }
-
-//display number
+//stores and displays number
 let btns = document.querySelectorAll('.numbers');
 btns.forEach(button => button.addEventListener('click', (e) => {
 	display.innerHTML = '';
@@ -73,12 +68,18 @@ btns.forEach(button => button.addEventListener('click', (e) => {
 	}
 }));
 
-//display and store operator
+//stores and displays operator
 let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', (e) => {
 	display.innerHTML = '';
+	if (storedNumber !== '' && storedNumber2 !== '') {
+		storedNumber = operate(storedOperator, storedNumber, storedNumber2);
+		storedOperator = '';
+		storedNumber2 = '';
+		display.innerHTML = storedNumber;
+	}
 	storedOperator = e.target.id;
-	display.innerHTML += e.target.innerText;
+	display.innerHTML = e.target.innerText;
 }));
 
 //clear display
@@ -92,5 +93,8 @@ clearBtn.addEventListener('click', (e) => {
 
 let equalsBtn = document.getElementById('equal');
 equalsBtn.addEventListener('click', (e) => {
-	display.innerHTML = operate(storedOperator, storedNumber, storedNumber2);
+	storedNumber = operate(storedOperator, storedNumber, storedNumber2);
+	storedOperator = '';
+	storedNumber2 = '';
+	display.innerHTML = storedNumber;
 });
