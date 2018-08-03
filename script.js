@@ -3,6 +3,7 @@ let display = document.querySelector('#display');
 let storedOperator = '';
 let storedNumber = '';
 let storedNumber2 = '';
+let answer = '';
 
 //create add function
 function add(...nums) {
@@ -38,6 +39,8 @@ function divide(...nums) {
 
 //takes two numbers and an operator. performs the math on the two numbers and displays answer
 function operate(operator, num1, num2) {
+	num1 = parseFloat(num1);
+	num2 = parseFloat(num2);
 	if (typeof operator === 'string') {
 		switch (operator) {
 			case 'add':
@@ -52,27 +55,27 @@ function operate(operator, num1, num2) {
 	}
 }
 
+//display numbers and things
+// function display(string) {
+// 	display.innerHTML = string;
+// }
+
 //display number
 let btns = document.querySelectorAll('.numbers');
 btns.forEach(button => button.addEventListener('click', (e) => {
-	if (storedOperator !== '') {
-		display.innerHTML = '';
+	display.innerHTML = '';
+	if (storedOperator == '' && answer == '') {
+		storedNumber += e.target.innerText;
+		display.innerHTML = storedNumber;
+	} else if (storedOperator != '' && answer == '') {
+		storedNumber2 += e.target.innerText;
+		display.innerHTML = storedNumber2;
 	}
-	display.innerHTML += e.target.innerText;
 }));
-
-//store numbers and return 
-function saveNumber() {
-	if (storedNumber !== '') {
-		return storedNumber2 = Number(display.innerHTML);
-	}
-	return storedNumber = Number(display.innerHTML);
-}
 
 //display and store operator
 let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', (e) => {
-	saveNumber();
 	display.innerHTML = '';
 	storedOperator = e.target.id;
 	display.innerHTML += e.target.innerText;
@@ -89,6 +92,5 @@ clearBtn.addEventListener('click', (e) => {
 
 let equalsBtn = document.getElementById('equal');
 equalsBtn.addEventListener('click', (e) => {
-	saveNumber();
 	display.innerHTML = operate(storedOperator, storedNumber, storedNumber2);
 });
