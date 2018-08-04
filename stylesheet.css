@@ -12,8 +12,16 @@
 	padding: 5px;
 }
 
-.nums {
+.buttons {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(5, 1fr); 
+	grid-template-columns: repeat(4, 1fr)
+}
+
+.ops {
+	background-color: #F88E2B;
+}
+
+.others {
+	d/*isplay: grid;
+	grid-template-columns: repeat(4, 1fr);	*/
 }

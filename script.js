@@ -5,17 +5,6 @@ let storedNumber = '';
 let storedNumber2 = '';
 let answer = '';
 
-//create divid
-function divide(...nums) {
-	let result = nums.reduce((total, num) => {
-		return total / num;
-	});
-	if (result === Infinity) {
-		display.innerHTML = 'you can\'t divide by zero';
-	}
-	return result;
-}
-
 //takes two numbers and an operator. performs the math on the two numbers and displays answer
 function operate(operator, num1, num2) {
 	num1 = parseFloat(num1);
@@ -29,7 +18,11 @@ function operate(operator, num1, num2) {
 			case 'multiply':
 			return num1 * num2;
 			case 'divide':
-			return divide(num1, num2);
+			if (num2 === 0) {
+				return 'infinity: you divided by zero'
+			} else {
+				return num1 / num2;
+			}
 		}
 	}
 }
@@ -39,7 +32,7 @@ function displayScreen(string) {
 }
 
 //stores and displays number
-let btns = document.querySelectorAll('.numbers');
+let btns = document.querySelectorAll('.nums');
 btns.forEach(button => button.addEventListener('click', (e) => {
 	displayScreen('');
 	if (storedOperator == '' && answer == '') {
@@ -59,8 +52,10 @@ opBtns.forEach(button => button.addEventListener('click', (e) => {
 		storedOperator = '';
 		storedNumber2 = '';
 		displayScreen(storedNumber);
+	} else {
+		storedOperator = e.target.id;
+		
 	}
-	storedOperator = e.target.id;
 }));
 
 //clear display
@@ -74,6 +69,9 @@ clearBtn.addEventListener('click', (e) => {
 
 let equalsBtn = document.getElementById('equal');
 equalsBtn.addEventListener('click', (e) => {
+	if (storedNumber2 == '' || storedOperator == '') {
+		return;
+	}
 	storedNumber = operate(storedOperator, storedNumber, storedNumber2);
 	storedOperator = '';
 	storedNumber2 = '';
