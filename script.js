@@ -5,27 +5,6 @@ let storedNumber = '';
 let storedNumber2 = '';
 let answer = '';
 
-//create add function
-function add(...nums) {
-	return nums.reduce((total, num) => {
-		return total + num;
-	});
-}
-
-//create subtract function
-function subtract(...nums) {
-	return nums.reduce((total, num) => {
-		return total - num;
-	});
-}
-
-//create product function
-function multiply(...nums) {
-	return nums.reduce((total, num) => {
-		return total * num;
-	});
-}
-
 //create divid
 function divide(...nums) {
 	let result = nums.reduce((total, num) => {
@@ -44,48 +23,50 @@ function operate(operator, num1, num2) {
 	if (typeof operator === 'string') {
 		switch (operator) {
 			case 'add':
-			return add(num1, num2);
+			return num1 + num2;
 			case 'subtract':
-			return subtract(num1, num2);
+			return num1 - num2;
 			case 'multiply':
-			return multiply(num1, num2);
+			return num1 * num2;
 			case 'divide':
 			return divide(num1, num2);
 		}
 	}
 }
 
+function displayScreen(string) {
+	display.innerHTML = string;
+}
+
 //stores and displays number
 let btns = document.querySelectorAll('.numbers');
 btns.forEach(button => button.addEventListener('click', (e) => {
-	display.innerHTML = '';
+	displayScreen('');
 	if (storedOperator == '' && answer == '') {
 		storedNumber += e.target.innerText;
-		display.innerHTML = storedNumber;
+		displayScreen(storedNumber);
 	} else if (storedOperator != '' && answer == '') {
 		storedNumber2 += e.target.innerText;
-		display.innerHTML = storedNumber2;
+		displayScreen(storedNumber2);
 	}
 }));
 
 //stores and displays operator
 let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', (e) => {
-	display.innerHTML = '';
 	if (storedNumber !== '' && storedNumber2 !== '') {
 		storedNumber = operate(storedOperator, storedNumber, storedNumber2);
 		storedOperator = '';
 		storedNumber2 = '';
-		display.innerHTML = storedNumber;
+		displayScreen(storedNumber);
 	}
 	storedOperator = e.target.id;
-	display.innerHTML = e.target.innerText;
 }));
 
 //clear display
 let clearBtn = document.querySelector('.clear');
 clearBtn.addEventListener('click', (e) => {
-	display.innerHTML = '';
+	displayScreen('');
 	storedNumber = '';
 	storedNumber2 = '';
 	storedOperator = '';
@@ -96,5 +77,5 @@ equalsBtn.addEventListener('click', (e) => {
 	storedNumber = operate(storedOperator, storedNumber, storedNumber2);
 	storedOperator = '';
 	storedNumber2 = '';
-	display.innerHTML = storedNumber;
+	displayScreen(storedNumber);
 });
