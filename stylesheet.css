@@ -1,27 +1,31 @@
 #display {
 	background-color: lightblue;
-	padding: 1em;
+	height: 2em;
 	font-size: 2em;
+	text-align: right;
+	padding-top: 5px;
 }
 
 #container {
 	width: 300px;
-	height: 500px;
+	height: 300px;
 	margin: auto;
 	border: 1px solid black;
 	padding: 5px;
+	background-color: #202020;
+	border-radius: 10px;
 }
 
 .buttons {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr)
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: .5em;
+}
+
+.nums {
+	background-color: #CFD0D4;
 }
 
 .ops {
 	background-color: #F88E2B;
-}
-
-.others {
-	d/*isplay: grid;
-	grid-template-columns: repeat(4, 1fr);	*/
 }
