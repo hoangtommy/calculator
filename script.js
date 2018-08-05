@@ -49,12 +49,11 @@ let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', (e) => {
 	if (storedNumber !== '' && storedNumber2 !== '') {
 		storedNumber = operate(storedOperator, storedNumber, storedNumber2);
-		storedOperator = '';
+		storedOperator = e.target.id;
 		storedNumber2 = '';
 		displayScreen(storedNumber);
 	} else {
 		storedOperator = e.target.id;
-		
 	}
 }));
 
