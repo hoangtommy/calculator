@@ -5,9 +5,6 @@ let storedNumber = '';
 let storedNumber2 = '';
 let answer = '';
 
-//consider having a wrap all the buttons and eventlisteners in a function. then run a setup function at the bottom of the page 
-
-
 //takes two numbers and an operator. performs the math on the two numbers and displays answer
 function operate(operator, num1, num2) {
 	num1 = parseFloat(num1);
@@ -26,12 +23,12 @@ function operate(operator, num1, num2) {
 			} else {
 				return num1 / num2;
 			}
-		}		
+		}
 	}
 }
 
 function displayScreen(string) {
-	display.innerHTML = Math.round(string * 10000000000)/10000000000;
+	display.innerHTML = string;
 }
 
 //stores and displays number
@@ -47,18 +44,61 @@ btns.forEach(button => button.addEventListener('click', (e) => {
 	}
 }));
 
+
 //stores and displays operator
 let opBtns = document.querySelectorAll('.ops');
-opBtns.forEach(button => button.addEventListener('click', (e) => {
-	if (storedNumber !== '' && storedNumber2 !== '') {
-		storedNumber = operate(storedOperator, storedNumber, storedNumber2);
-		storedOperator = e.target.id;
-		storedNumber2 = '';
-		displayScreen(storedNumber);
-	} else {
-		storedOperator = e.target.id;
+opBtns.forEach(button => button.addEventListener('click', opBtnClickHandler);
+
+function calculatorClickHandlerFactory (operationFunction) {
+	return (e) => {
+		const {
+			displayUpdateResult,
+			storedNumberResult,
+			storedNumber2Result,
+			storedOperatorResult,
+		} = operationFunction(e, {
+			storedNumber,
+			storedNumber2,
+		});
+
+		if (displayUpdateResult) {
+			displayScreen(displayUpdateResult);
+		}
+
+		if (storedNumberResult) {
+			storedNumber = storedNumberResult;
+		}
+
+		if (storedNumber2Result) {
+			storedNumber2 = storedNumber2Result;
+		}
+
+		if (storedOperatorResult) {
+			storedOperator = storedOperatorResult;
+		}
 	}
-}));
+}
+
+const opBtnClickHandler = calculatorClickHandlerFactory(
+	(e, { storedNumber, storedNumber2 }) => {
+		if (storedNumber !== '' && storedNumber2 !== '') {
+			const storedNumberResult = operate(storedOperator, storedNumber, storedNumber2);
+
+			return {
+				storedNumberResult,
+				storedOperatorResult: e.target.id,
+				displayScreenResult: storedNumber,
+			};
+		}
+
+		return {
+			storedOperatorResult: e.target.id,
+		};
+	}
+);
+
+
+
 
 //clear display
 let clearBtn = document.querySelector('.clear');
@@ -96,10 +136,10 @@ percentBtn.addEventListener('click', () => {
 //adds dot to number
 let dotBtn = document.querySelector('#point');
 dotBtn.addEventListener('click', () => {
-	if (display.innerHTML == storedNumber && !storedNumber.includes('.')) {
+	if (display.innerHTML == storedNumber) {
 		storedNumber = storedNumber + '.';
 		displayScreen(storedNumber);
-	} else if (display.innerHTML == storedNumber2 && !storedNumber2.includes('.')) {
+	} else if (display.innerHTML == storedNumber2) {
 		storedNumber2 = storedNumber2 + '.';
 		displayScreen(storedNumber2);
 	}
