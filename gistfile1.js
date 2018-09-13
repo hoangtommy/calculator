@@ -49,6 +49,7 @@ btns.forEach(button => button.addEventListener('click', (e) => {
 let opBtns = document.querySelectorAll('.ops');
 opBtns.forEach(button => button.addEventListener('click', opBtnClickHandler);
 
+//this factory acts like a traffic director. taking in info and sending out the corresponding function
 function calculatorClickHandlerFactory (operationFunction) {
 	return (e) => {
 		const {
